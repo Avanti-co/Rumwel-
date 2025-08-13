@@ -1,5 +1,5 @@
 {
-  "name": "Avanti \u2014 Innovating Digital Futures",
+  "name": "Avanti — Innovating Digital Futures",
   "short_name": "Avanti",
   "start_url": ".",
   "scope": ".",
@@ -8,15 +8,15 @@
   "theme_color": "#1a9ad6",
   "icons": [
     {
-      "src": "icons/icon-192.png",
+      "src": "icons/logo1.jpeg",
       "sizes": "192x192",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     },
     {
-      "src": "icons/icon-512.png",
+      "src": "icons/logo1.jpeg",
       "sizes": "512x512",
-      "type": "image/png",
+      "type": "image/jpeg",
       "purpose": "any maskable"
     }
   ]
