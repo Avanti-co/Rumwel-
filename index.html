@@ -646,6 +646,15 @@ transform: scale(1.5);
       <strong>Accessibility & clarity:</strong> This site is written in plain language so everyone can understand our services and make simple requests. If you need help, call us and we will guide you step-by-step.
     </div>
   </footer>
+    <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+        .then(reg => console.log('Service Worker registered', reg))
+        .catch(err => console.log('Service Worker failed', err));
+      });
+    }
+  </script>
 <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
   <script>
     // Simple helpers
