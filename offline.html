@@ -1,16 +1,28 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Offline — Avanti</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      text-align: center;
+    }
+    h1 { color: #333; }
+    p { color: #666; }
+  </style>
 </head>
-<body style="display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center">
-  <main>
-    <img src="icons/icon-192.png" alt="" style="width:72px;height:72px;border-radius:14px;opacity:.95"><br>
-    <h1>You’re offline</h1>
-    <p class="muted">The Avanti app will work again when your connection returns. Content you’ve visited is cached.</p>
-  </main>
+<body>
+  <div>
+    <h1>You are offline!</h1>
+    <p>The site is temporarily unavailable. Check your connection.</p>
+  </div>
 </body>
 </html>
