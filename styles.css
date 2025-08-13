@@ -1,0 +1,74 @@
+
+:root{
+  --bg:#2f5582;
+  --dark:#16213e;
+  --card:#f6f8fb;
+  --muted:#98a7bb;
+  --accent:#1a9ad6;
+  --white:#ffffff;
+  --radius:14px;
+  --ease:cubic-bezier(.22,.9,.35,1);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica Neue,Arial;
+  background:linear-gradient(180deg,var(--bg), #355f91 80%);
+  color:var(--white);
+  -webkit-font-smoothing:antialiased;
+  line-height:1.45;
+}
+/* Splash */
+#splash{position:fixed;inset:0;background:#2f5582;display:flex;align-items:center;justify-content:center;z-index:9999;animation:fadeOut .7s var(--ease) .7s forwards}
+#splash img{width:60%;max-width:520px;opacity:.96;border-radius:12px;box-shadow:0 20px 60px rgba(2,6,23,.35)}
+@keyframes fadeOut{to{opacity:0;visibility:hidden}}
+
+/* Topbar */
+.topbar{position:sticky;top:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:10px 16px;background:rgba(255,255,255,.06);backdrop-filter:blur(6px);border-bottom:1px solid rgba(255,255,255,.06)}
+.brand{display:flex;gap:10px;align-items:center}
+.brand img{width:36px;height:36px;border-radius:10px}
+.brand-text{display:flex;flex-direction:column;line-height:1}
+.brand-text small{color:#cce4ff}
+
+/* Buttons */
+.btn{display:inline-flex;gap:10px;align-items:center;padding:12px 16px;border-radius:12px;font-weight:800;text-decoration:none;border:none;cursor:pointer;transition:transform .25s var(--ease), filter .25s var(--ease)}
+.btn:hover{transform:translateY(-3px)}
+.btn.primary{background:var(--accent);color:var(--white);box-shadow:0 10px 30px rgba(26,154,214,.18)}
+.btn.light{background:rgba(255,255,255,.12);color:var(--white)}
+
+/* Hero */
+.hero{max-width:1000px;margin:40px auto 10px;padding:0 20px;text-align:center}
+.hero h1{font-size:clamp(28px,4.2vw,46px);line-height:1.05;margin:10px 0}
+.hero p{color:rgba(255,255,255,.92);max-width:70ch;margin:0 auto 16px}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* Cards */
+.cards{max-width:1100px;margin:20px auto;padding:0 20px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);color:#14324a;padding:16px;border-radius:12px;box-shadow:0 8px 28px rgba(2,6,23,.08);transition:transform .28s var(--ease), box-shadow .28s var(--ease)}
+.card:hover{transform:translateY(-8px);box-shadow:0 20px 60px rgba(2,6,23,.12)}
+.card h3{margin:6px 0 8px}
+
+/* Assistant */
+.assistant{position:fixed;right:18px;bottom:18px;z-index:1500}
+.assistant-fab{width:62px;height:62px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#0c86bf);box-shadow:0 12px 40px rgba(12,86,140,.28);color:#fff;font-size:28px;border:none;cursor:pointer}
+.assistant-panel{position:absolute;right:70px;bottom:72px;width:320px;max-width:92vw;background:rgba(12,86,140,.85);color:#e6f3ff;border-radius:12px;padding:14px;box-shadow:0 14px 40px rgba(2,6,23,.2);transform:translateY(10px) scale(.98);opacity:0;pointer-events:none;transition:all .28s var(--ease)}
+.assistant-panel.visible{transform:translateY(0) scale(1);opacity:1;pointer-events:auto}
+.assistant .chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.chip{padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.14);color:#fff;border:none;cursor:pointer}
+
+/* Contact */
+.contact{max-width:900px;margin:40px auto;padding:0 20px}
+.contact-form{background:rgba(255,255,255,.06);backdrop-filter:blur(6px);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,.08)}
+.contact-form label{display:block;margin-bottom:10px}
+.contact-form input,.contact-form textarea{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#fff;color:#14324a}
+.contact-form textarea{min-height:120px}
+.contact .row{display:flex;gap:10px;margin-top:8px}
+.success{margin-top:10px;color:#c2ffd4}
+
+/* Footer */
+.footer{padding:24px;text-align:center;color:#cfe7ff;opacity:.9}
+
+/* Responsive */
+@media (max-width:900px){.cards{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.cards{grid-template-columns:1fr}}

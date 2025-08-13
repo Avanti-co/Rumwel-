@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <title>Avanti — Innovating Digital Futures</title>
+
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#1a9ad6">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+  <!-- Splash overlay for smooth launch -->
+  <div id="splash" aria-hidden="true">
+    <img src="splash-portrait-1280x2208.jpg" alt="" />
+  </div>
+
+  <!-- Simple top bar -->
+  <nav class="topbar">
+    <div class="brand">
+      <img src="icons/icon-192.png" alt="Avanti logo">
+      <div class="brand-text">
+        <b>Avanti</b>
+        <small>Design • Develop • Evolve</small>
+      </div>
+    </div>
+    <button id="installBtn" class="btn primary" hidden>Install</button>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero">
+    <h1>We build websites, tools and systems that make life easy.</h1>
+    <p>Avanti creates simple, beautiful and reliable digital solutions — from online profiles to full shopping systems, micro‑finance tools and digital assistants.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#contact">Request help — it's free to start</a>
+      <a class="btn light" href="#projects">See Examples</a>
+    </div>
+  </header>
+
+  <!-- Cards -->
+  <main>
+    <section class="cards">
+      <article class="card">
+        <h3>Web Profiles & Portfolios</h3>
+        <p>Mobile-first profile sites that clearly show your work and contact details.</p>
+      </article>
+      <article class="card">
+        <h3>Shopping & E‑commerce</h3>
+        <p>Secure checkout, inventory and order tracking — simple for you and customers.</p>
+      </article>
+      <article class="card">
+        <h3>Micro‑finance Tools</h3>
+        <p>Record loans, repayments and generate reports with ease.</p>
+      </article>
+    </section>
+
+    <!-- Assistant -->
+    <section class="assistant">
+      <div class="assistant-panel" id="assistantPanel">
+        <strong>Hello — I'm AvantiBot 👋</strong>
+        <p class="muted">Try a quick action:</p>
+        <div class="chips">
+          <button class="chip" data-target="#contact">Request help</button>
+          <button class="chip" data-target="#projects">See examples</button>
+          <button class="chip" data-target="#services">Show services</button>
+        </div>
+      </div>
+      <button id="assistantToggle" aria-controls="assistantPanel" aria-expanded="false" class="assistant-fab">🤖</button>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <h2>Request help or ask questions</h2>
+      <form id="requestForm" class="contact-form">
+        <label>Name <input required id="name" placeholder="Your name"></label>
+        <label>Contact (phone or email) <input required id="contactInfo" placeholder="097... or email@example.com"></label>
+        <label>What do you want built? <textarea required id="message" placeholder="Describe what you need."></textarea></label>
+        <div class="row">
+          <button class="btn primary" type="submit">Send request</button>
+          <button class="btn light" type="button" id="clearForm">Clear</button>
+        </div>
+        <div id="formMessage" class="success" hidden>Thanks — your request has been sent. We will contact you soon.</div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>© <span id="year"></span> Avanti. All rights reserved.</div>
+  </footer>
+</body>
+</html>
