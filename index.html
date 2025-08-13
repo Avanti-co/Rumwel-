@@ -2,10 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width,initial-scale=0.56" />
   <title>Avanti — Innovating Digital Futures</title>
-
-  <link rel="manifest" href="manifest.json">
+ <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#1a9ad6">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,85 +13,737 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script defer src="app.js"></script>
+  
+
+  <style>
+    :root{
+      --bg:#2f5582;          /* main brand blue */
+      --dark:#16213e;        /* deep navy */
+      --card:#f6f8fb;        /* pale card background */
+      --muted:#98a7bb;       /* muted text */
+      --accent:#1a9ad6;      /* accent */
+      --white:#ffffff;
+      --glass: rgba(255,255,255,0.06);
+      --max-width:1200px;
+      --radius:14px;
+      --ease: cubic-bezier(.22,.9,.35,1);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg), #355f91 80%);
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+    }
+
+    /* ---------- page layout ---------- */
+    header.site-hero{
+      position:relative;
+      min-height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px 20px;
+      overflow:hidden;
+    }
+
+    /* background image full bleed with overlay */
+    .hero-bg{
+      position:absolute;
+      inset:0;
+      background-image: url('hero1.jpeg');
+      background-size:cover;
+      background-position:center center;
+      filter: saturate(.9) contrast(.95) brightness(.55);
+      transform: scale(1.02);
+      z-index:0;
+    }
+    .hero-overlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(10,12,30,0.28), rgba(8,10,20,0.6));
+      z-index:1;
+    }
+
+    nav.main-nav{
+      position:fixed;
+      z-index:1200;
+      left:50%;
+      transform:translateX(-50%);
+      width:100%;
+      max-width:var(--max-width);
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 22px;
+      align-items:center;
+      top:14px;
+      background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:12px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 6px 30px rgba(2,6,23,0.35);
+      border: 1px solid rgba(255,255,255,0.03);
+      margin:0 16px;
+    }
+    .brand{
+      display:flex;align-items:center;gap:12px;font-weight:800;
+      letter-spacing:0.6px;
+    }
+    .logo-mark{
+      width:48px;height:48px;border-radius:17px;
+      display:flex;align-items:center;justify-content:center;
+      background:linear-gradient(135deg,var(--white), rgba(255,255,255,0.85));
+      color:var(--dark); font-weight:800; font-size:20px;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.5);
+
+
+    }
+    .nav-links{display:flex;gap:10px;align-items:center;}
+    .nav-links a{color:rgba(255,255,255,0.9); text-decoration:none; padding:8px 10px; border-radius:8px; font-weight:600; transition:all .25s var(--ease);}
+    .nav-links a:hover{background:rgba(255,255,255,0.05); transform:translateY(-2px)}
+    .cta-request{background:var(--accent); color:var(--white); padding:8px 12px; border-radius:10px; font-weight:700; box-shadow: 0 6px 18px rgba(8,20,40,0.28);}
+
+    /* Hero content */
+    .hero-content{
+      position:relative;
+      z-index:3;
+      width:100%;
+      max-width:1100px;
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+      padding:60px;
+      margin-top:20px;
+    }
+    .hero-left{
+      color:var(--white);
+    }
+    .eyebrow{
+      display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,0.06); color:var(--muted); font-weight:600; letter-spacing:0.6px; margin-bottom:16px;
+    }
+    h1.title{
+      font-size: clamp(28px, 4vw, 44px);
+      margin:6px 0 10px;
+      line-height:1.02;
+      font-weight:800;
+      letter-spacing:-1px;
+    }
+    p.lead{
+      margin:12px 0 20px;
+      color:rgba(255,255,255,0.92);
+      font-weight:500;
+      max-width:70ch;
+    }
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap; align-items:center;}
+    .btn{display:inline-flex; gap:10px; align-items:center; padding:12px 16px; border-radius:12px; font-weight:700; text-decoration:none; cursor:pointer; transition:all .25s var(--ease);}
+    .btn-light{background:rgba(255,255,255,0.12); color:var(--white);}
+    .btn-primary{background:var(--accent); color:var(--white); box-shadow:0 10px 30px rgba(26,154,214,0.14)}
+    .btn:hover{transform:translateY(-4px)}
+    .hero-stats{
+      display:flex; gap:18px; margin-top:22px; flex-wrap:wrap;
+    }
+    .stat{background: rgba(255,255,255,0.04); padding:12px 16px; border-radius:10px; min-width:140px;}
+    .stat strong{display:block; font-size:18px; font-weight:800}
+
+    /* right card */
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      padding:18px; border-radius:12px; box-shadow: 0 10px 40px rgba(2,6,23,0.6);
+      backdrop-filter: blur(6px);
+      border:1px solid rgba(255,255,255,0.04);
+    }
+    .hero-card h3{margin:6px 0 8px; font-size:20px}
+    .feature-list{display:flex; flex-direction:column; gap:8px}
+    .feature{display:flex; gap:12px; align-items:flex-start}
+    .feature svg{flex:0 0 36px}
+    .feature p{margin:0; font-size:14px; color:rgba(255,255,255,0.95)}
+
+    /* ---------- sections ---------- */
+    main{position:relative; z-index:2}
+    section.block{padding:72px 20px; max-width:var(--max-width); margin:0 auto; width:100%}
+
+    .cards{display:grid; grid-template-columns: repeat(3,1fr); gap:18px}
+    .card{
+      background:var(--card);
+      color:#14324a;
+      padding:18px; border-radius:12px; box-shadow: 0 8px 28px rgba(2,6,23,0.08);
+      transition:transform .28s var(--ease), box-shadow .28s var(--ease);
+    }
+    .card:hover{transform:translateY(-8px); box-shadow:0 20px 60px rgba(2,6,23,0.12)}
+    .card h4{margin-bottom:8px}
+
+    /* Services text plain */
+    .services-list{display:grid; grid-template-columns: 1fr 1fr; gap:12px}
+    .service-item{background:rgba(255,255,255,0.03); padding:14px; border-radius:10px}
+
+    /* Clients */
+    .clients-grid{display:flex; flex-wrap:wrap; gap:12px; align-items:center}
+    .client{
+      background:rgba(255,255,255,0.03); padding:12px 14px; border-radius:10px; min-width:180px; text-align:center;
+      display:flex; gap:10px; align-items:center; justify-content:center;
+    }
+
+    /* Project gallery */
+    .projects-grid{display:grid; grid-template-columns: repeat(3,1fr); gap:18px}
+    .project{
+      position:relative; border-radius:12px; overflow:hidden; background: #0f2a44; min-height:200px;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow: 0 12px 30px rgba(2,6,23,0.2);
+    }
+    .project img{width:100%; height:100%; object-fit:cover; display:block; filter:brightness(.8)}
+    .project .meta{
+      position:absolute; left:12px; bottom:12px; color:white; z-index:2;
+      font-weight:700; background:rgba(0,0,0,0.45); padding:8px 12px; border-radius:8px;
+    }
+    /* block cover to prevent iframe interaction */
+    .iframe-overlay{
+      position:absolute; inset:0; z-index:3; background: linear-gradient(180deg, transparent, rgba(2,6,23,0.18));
+      display:flex; align-items:center; justify-content:center;
+      pointer-events:none; /* prevents clicking into iframe */
+    }
+    .project .play{
+      width:70px; height:70px; border-radius:999px; background:rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center;
+      border: 1px solid rgba(255,255,255,0.06);
+      transform:translateY(0); transition:transform .2s;
+    }
+    .project:hover .play{transform:translateY(-6px)}
+
+    /* FAQ + steps */
+    .steps{display:flex; gap:14px; flex-wrap:wrap}
+    .step{background:rgba(255,255,255,0.03); padding:18px; border-radius:12px; flex:1; min-width:200px}
+
+    /* contact */
+    .contact-grid{display:grid; grid-template-columns:1fr 420px; gap:20px; align-items:start}
+    form.card .row{display:flex; gap:10px; margin-bottom:10px}
+    input, textarea, select{
+      width:100%; padding:10px 12px; border-radius:8px; border:1px solid rgba(2,6,23,0.06);
+      font-size:15px; outline:none; background:white; color:#14324a;
+    }
+    textarea{min-height:120px; resize:vertical}
+
+    /* assistant widget */
+    .assistant-fab{
+      position:fixed; right:18px; bottom:18px; z-index:1500;
+      display:flex; gap:10px; flex-direction:column; align-items:flex-end;
+    }
+    .assistant-button{
+      width:62px; height:62px; border-radius:999px;
+      background:linear-gradient(135deg,var(--accent), #0c86bf);
+      box-shadow: 0 12px 40px rgba(12,86,140,0.28);
+      display:flex; align-items:center; justify-content:center; cursor:pointer; border:none;
+    }
+    .assistant-button svg{width:28px; height:28px; color:white}
+    .assistant-panel{
+      width:320px; max-width:92vw; background: rgba(12,86,140,0.8); color:#15364a; border-radius:12px; padding:14px; box-shadow:0 14px 40px rgba(2,6,23,0.2);
+      transform:translateY(10px); opacity:0; pointer-events:none; transition:all .28s var(--ease);
+transform: scale(1.5);
+    }
+    .assistant-panel.visible{transform:translateY(0); opacity:1; pointer-events:auto}
+
+    /* big footer */
+    footer.site-footer{
+      margin-top:48px; background:linear-gradient(180deg,#081223, #07162a); color:#97a9bf; padding:48px 20px;
+    }
+    .footer-grid{display:grid; grid-template-columns: 1fr 1fr 1fr; gap:20px; max-width:var(--max-width); margin:0 auto;}
+    .footer-brand{color:white; font-weight:800; font-size:20px; margin-bottom:12px}
+    .footer-links{display:flex; flex-direction:column; gap:8px}
+    .socials{display:flex; gap:12px; margin-top:12px}
+    .legal{margin-top:18px; font-size:13px; color:#6f8296}
+
+    /* moving shapes (abstract art showing logo) */
+    .floating-shapes{position:absolute; inset:auto 0 10% 0; z-index:0; pointer-events:none;}
+    .shape{
+      position:absolute; border-radius:999px; mix-blend-mode: screen; opacity:0.18;
+      filter: blur(16px);
+      animation: floaty 18s linear infinite;
+    }
+    .shape.s1{width:220px;height:220px; left:8%; background: linear-gradient(90deg,#fff,#9bd6ff);}
+    .shape.s2{width:320px;height:320px; right:6%; background: linear-gradient(90deg,#ffc8b6,#ffe3b8); top:10%}
+    .shape.s3{width:120px;height:120px; left:42%; background: linear-gradient(90deg,#b6ffe5,#8ef0ff); top:22%}
+    @keyframes floaty{
+      0%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-40px) rotate(40deg)}
+      100%{transform:translateY(0) rotate(0deg)}
+    }
+
+    /* responsive */
+    @media (max-width:1100px){
+      .hero-content{grid-template-columns:1fr}
+      .contact-grid{grid-template-columns:1fr}
+      .projects-grid{grid-template-columns: repeat(2,1fr)}
+      .cards{grid-template-columns: repeat(2,1fr)}
+    }
+    @media (max-width:720px){
+      nav.main-nav{padding:10px; left:10px; transform:none; width:calc(100% - 20px); top:10px}
+      .nav-links{display:none}
+      .hero-stats{flex-direction:column}
+      .projects-grid{grid-template-columns:1fr}
+      .cards{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 <body>
 
-  <!-- Splash overlay for smooth launch -->
-  <div id="splash" aria-hidden="true">
-    <img src="splash-portrait-1280x2208.jpg" alt="" />
-  </div>
+  <!-- Navigation -->
+  <nav class="main-nav" role="navigation" aria-label="Main Navigation">
+    <div class="brand" aria-hidden="true">
+<div style="transition: transform 5s; transform: rotate(0deg);" onmouseover="this.style.transform='rotate(360deg)'" onmouseout="this.style.transform='rotate(0deg)'" class="logo-mark" id="logo-mark">
+    <img src="logo1.jpeg" class="logo-mark" id="logo-mark">
 
-  <!-- Simple top bar -->
-  <nav class="topbar">
-    <div class="brand">
-      <img src="icons/icon-192.png" alt="Avanti logo">
-      <div class="brand-text">
-        <b>Avanti</b>
-        <small>Design • Develop • Evolve</small>
+</div>
+      <div>
+        <div style="font-size:15px">Avanti</div>
+        <div style="font-size:11px;color:var(--muted);font-weight:600">Design • Develop • Evolve</div>
       </div>
     </div>
-    <button id="installBtn" class="btn primary" hidden>Install</button>
+
+    <div class="nav-links" id="nav-links">
+      <a href="#services">Services</a>
+      <a href="#projects">Work</a>
+      <a href="#clients">Clients</a>
+      <a href="#how">How</a>
+      <a href="#contact" class="cta-request">Request Service</a>
+    </div>
   </nav>
 
+  <!-- floating abstract shapes -->
+  <div class="floating-shapes" aria-hidden="true">
+    <div class="shape s1"></div>
+    <div class="shape s2"></div>
+    <div class="shape s3"></div>
+  </div>
+
   <!-- Hero -->
-  <header class="hero">
-    <h1>We build websites, tools and systems that make life easy.</h1>
-    <p>Avanti creates simple, beautiful and reliable digital solutions — from online profiles to full shopping systems, micro‑finance tools and digital assistants.</p>
-    <div class="cta-row">
-      <a class="btn primary" href="#contact">Request help — it's free to start</a>
-      <a class="btn light" href="#projects">See Examples</a>
+  <header class="site-hero" id="home">
+    <div class="hero-bg" role="img" aria-label="Avanti background image (office team)"></div>
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <div style="transform: scale(1.1);" class="hero-content">
+      <div class="hero-left">
+
+        <div class="eyebrow">Bespoke software & digital services</div>
+        <h1 class="title">We build websites, tools and systems that make life easy for individuals and businesses.</h1>
+        <p class="lead">Avanti creates simple, beautiful and reliable digital solutions — from online profiles for people to full shopping systems, micro-finance tools and digital assistants. We can build, host, or manage your site for you.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" id="start-request">Request help — it's free to start</a>
+          <a class="btn btn-light" href="#projects">See Examples</a>
+          <a class="btn btn-light" href="#clients">Our Clients</a>
+        </div>
+
+        <div class="hero-stats" aria-hidden="true">
+          <div class="stat"><strong>100+</strong><span style="color:var(--muted)">Projects delivered</span></div>
+          <div class="stat"><strong>Trusted</strong><span style="color:var(--muted)">by private & public teams</span></div>
+          <div class="stat"><strong>End-to-end</strong><span style="color:var(--muted)">Design, Build, Support</span></div>
+        </div>
+      </div>
+
+      <aside class="hero-card" aria-labelledby="card-title">
+        <h3 id="card-title">What we can do for you</h3>
+        <div class="feature-list">
+          <div class="feature">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2a10 10 0 100 20 10 10 0 000-20z" stroke="#fff" stroke-opacity="0.8" stroke-width="1.6"/></svg>
+            <p><strong>Website profiles</strong><br><small>Create a beautiful profile to show who you are.</small></p>
+          </div>
+          <div class="feature">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2" stroke="#fff" stroke-opacity="0.7" stroke-width="1.6"/></svg>
+            <p><strong>E-commerce / Shops</strong><br><small>Sell online — simple, secure and fast.</small></p>
+          </div>
+          <div class="feature">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h16" stroke="#fff" stroke-opacity="0.8" stroke-width="1.6"/></svg>
+            <p><strong>Micro-finance tools</strong><br><small>Manage loans, payments and reports with ease.</small></p>
+          </div>
+        </div>
+      </aside>
     </div>
   </header>
 
-  <!-- Cards -->
   <main>
-    <section class="cards">
-      <article class="card">
-        <h3>Web Profiles & Portfolios</h3>
-        <p>Mobile-first profile sites that clearly show your work and contact details.</p>
-      </article>
-      <article class="card">
-        <h3>Shopping & E‑commerce</h3>
-        <p>Secure checkout, inventory and order tracking — simple for you and customers.</p>
-      </article>
-      <article class="card">
-        <h3>Micro‑finance Tools</h3>
-        <p>Record loans, repayments and generate reports with ease.</p>
-      </article>
+
+    <!-- Services -->
+    <section class="block" id="services" aria-labelledby="services-title">
+      <h2 id="services-title" style="color:var(--white); margin-bottom:18px">Services, simply explained</h2>
+
+      <div class="cards" role="list">
+        <div class="card" role="listitem">
+          <h4>Web Profiles & Digital Portfolios</h4>
+          <p>Make it easy for people to find you. We design clear, mobile-friendly profile sites that show your work, contact details, and what you do — without confusing words.</p>
+        </div>
+
+        <div class="card" role="listitem">
+          <h4>Shopping & E-Commerce Websites</h4>
+          <p>Full shopping sites with secure checkout, inventory, and order tracking. Customers can shop simply and you can manage everything from one place.</p>
+        </div>
+
+        <div class="card" role="listitem">
+          <h4>Micro-finance & Loan Management</h4>
+          <p>Tools to record loans, repayments and generate reports. Designed for small banks, groups and community finance teams.</p>
+        </div>
+
+        <div class="card" role="listitem">
+          <h4>Automated Emails & Notifications</h4>
+          <p>Send receipts, reminders and updates automatically from your site so your customers always know what’s happening.</p>
+        </div>
+
+        <div class="card" role="listitem">
+          <h4>Full Website Management</h4>
+          <p>We can hand you the keys or take care of everything — hosting, updates, backups and support so you never worry about the technical side.</p>
+        </div>
+
+        <div class="card" role="listitem">
+          <h4>Digital Assistant & Task Manager</h4>
+          <p>Smart helpers that remind you of tasks, manage schedules, and help keep daily work on track.</p>
+        </div>
+
+        <div class="card" role="listitem">
+          <h4>Accounting & Financial Reporting</h4>
+          <p>We follow reliable British accounting ideas so your sales, expenses and tax-ready numbers are done carefully and simply.</p>
+        </div>
+
+      </div>
+
+      <div style="margin-top:18px; color:var(--muted); font-size:14px">
+        <strong>How to start:</strong> Click “Request help” or fill the form below. We will talk and explain everything clearly — no technical language required.
+      </div>
     </section>
 
-    <!-- Assistant -->
-    <section class="assistant">
-      <div class="assistant-panel" id="assistantPanel">
-        <strong>Hello — I'm AvantiBot 👋</strong>
-        <p class="muted">Try a quick action:</p>
-        <div class="chips">
-          <button class="chip" data-target="#contact">Request help</button>
-          <button class="chip" data-target="#projects">See examples</button>
-          <button class="chip" data-target="#services">Show services</button>
+    <!-- Projects / Work samples -->
+    <section class="block" id="projects" aria-labelledby="projects-title" style="padding-top:26px">
+      <h2 id="projects-title" style="color:var(--white); margin-bottom:18px">Example websites we've built</h2>
+      <p style="color:var(--muted); margin-bottom:14px">These are visual samples — you can see how they look, but they cannot be used from here.</p>
+
+      <div class="projects-grid">
+        <div class="project" aria-hidden="true">
+          <img src="OS.jpeg" alt="Project example 1" />
+          
+          <div class="meta">Business Shop — Visual sample</div>
+        </div>
+
+        <div class="project" aria-hidden="true">
+          <img src="FM.jpeg" alt="Project example 2" />
+         
+          <div class="meta">Micro-finance Dashboard — Visual sample</div>
+        </div>
+
+        <div class="project" aria-hidden="true">
+          <img src="BP.jpeg" alt="Project example 3" />
+          
+          <div class="meta">Company Profile — Visual sample</div>
         </div>
       </div>
-      <button id="assistantToggle" aria-controls="assistantPanel" aria-expanded="false" class="assistant-fab">🤖</button>
+
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="contact">
-      <h2>Request help or ask questions</h2>
-      <form id="requestForm" class="contact-form">
-        <label>Name <input required id="name" placeholder="Your name"></label>
-        <label>Contact (phone or email) <input required id="contactInfo" placeholder="097... or email@example.com"></label>
-        <label>What do you want built? <textarea required id="message" placeholder="Describe what you need."></textarea></label>
-        <div class="row">
-          <button class="btn primary" type="submit">Send request</button>
-          <button class="btn light" type="button" id="clearForm">Clear</button>
+<section>
+<img style="width: 100%;" src="hero1.jpeg">
+</section>
+
+    <!-- Clients -->
+    <section class="block" id="clients" aria-labelledby="clients-title" style="padding-top:30px;">
+      <h2 id="clients-title" style="color:var(--white)">Trusted by individuals & organisations</h2>
+      <p style="color:var(--muted); margin-bottom:16px">We have worked with government, private businesses and shops in Zambia and beyond.</p>
+
+      <div class="clients-grid" role="list">
+       
+ <div class="step" role="listitem">
+          <strong>1. Claymore Solutions</strong>
+          <div style="color:var(--muted); margin-top:8px">Claymore Solutions is a liquor store that provides a convenient shopping experience for customers.</div>
         </div>
-        <div id="formMessage" class="success" hidden>Thanks — your request has been sent. We will contact you soon.</div>
-      </form>
+        <div class="step" role="listitem">
+          <strong>2. OpiumTrim.Online</strong>
+          <div style="color:var(--muted); margin-top:8px">OpiumTrim is a clothing brand that embodies a dark & edgy aesthetic. With a focus on bold designs and striking visuals.</div>
+        </div>
+         <div class="step" role="listitem">
+          <strong>3. Rumwel Store</strong>
+          <div style="color:var(--muted); margin-top:8px">Rumwel Liquor Store is a popular destination offering a wide range of fine wines, spirits, and beers.</div>
+        </div>
+         <div class="step" role="listitem">
+          <strong>4. Jungle Stores</strong>
+          <div style="color:var(--muted); margin-top:8px">Jungle Stores in collaboration with Lindies' Elegant Hats-Explore a wide variety of what nature has to offer - handcrafted products of wood, reeds, etc.</div>
+        </div>
+         <div class="step" role="listitem">
+          <strong>5. Zambia Law Development Commision</strong>
+          <div style="color:var(--muted); margin-top:8px">The Zambia Law Development Commission (ZLDC) is a semi-autonomous statutory body established in 1996 under Chapter 32 of the Laws of Zambia. </div>
+        </div>
+       
+      </div>
     </section>
+
+
+<img style="width: 100%;" src="hero2.jpeg">
+
+    <!-- How we work (simple steps) -->
+    <section class="block" id="how" aria-labelledby="how-title">
+      <h2 id="how-title" style="color:var(--white)">How Avanti works — simple steps</h2>
+      <div style="color:var(--muted); margin-bottom:18px">We keep everything plain and helpful. Here is a short path we follow with every client.</div>
+
+      <div class="steps" role="list">
+        <div class="step" role="listitem">
+          <strong>1. Tell us what you need</strong>
+          <div style="color:var(--muted); margin-top:8px">Use the form or call us. Explain in your own words — we will ask friendly questions to understand.</div>
+        </div>
+        <div class="step" role="listitem">
+          <strong>2. We show a simple plan</strong>
+          <div style="color:var(--muted); margin-top:8px">No technical words. We show what will be built, how it helps you, and a timeline.</div>
+        </div>
+        <div class="step" role="listitem">
+          <strong>3. Build & test</strong>
+          <div style="color:var(--muted); margin-top:8px">We build the tool and show you. You test it — we make changes until you are happy.</div>
+        </div>
+        <div class="step" role="listitem">
+          <strong>4. Launch & support</strong>
+          <div style="color:var(--muted); margin-top:8px">We launch and support the site. You can manage it, or we can manage it for you.</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Quick FAQ -->
+    <section class="block" id="faq" aria-labelledby="faq-title" style="padding-top:10px">
+      <h2 id="faq-title" style="color:var(--white); margin-bottom:14px">Common questions — answered simply</h2>
+      <div style="display:grid; gap:10px;">
+        <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:8px">
+          <strong>Can you build for a small shop?</strong>
+          <div style="color:var(--muted); margin-top:6px">Yes — we make small shops that are easy to use and accept payments.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:8px">
+          <strong>Do you manage sites after launch?</strong>
+          <div style="color:var(--muted); margin-top:6px">Yes — we can manage hosting, updates and backups for you.</div>
+        </div>
+        <div style="background:rgba(255,255,255,0.03); padding:12px; border-radius:8px">
+          <strong>Will I need technical skills?</strong>
+          <div style="color:var(--muted); margin-top:6px">No. We explain in plain language and train you to use your site.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact / Request form -->
+    <section class="block" id="contact" aria-labelledby="contact-title" style="padding-bottom:40px;">
+      <h2 id="contact-title" style="color:var(--white); margin-bottom:14px">Request help or ask questions</h2>
+      <div style="color:var(--muted); margin-bottom:18px">Fill this form and we'll reach out. Keep it simple — tell us what you'd like made.</div>
+
+      <div class="contact-grid">
+        <form class="card" id="requestForm" aria-label="Request form">
+          <div style="font-weight:700; margin-bottom:12px; color:#14324a">Start a request</div>
+
+          <label class="row" style="flex-direction:column">
+            <span style="font-size:13px; color:var(--muted); margin-bottom:6px">Your name</span>
+            <input type="text" id="name" placeholder="enter name" required />
+          </label>
+
+          <label class="row" style="flex-direction:column">
+            <span style="font-size:13px; color:var(--muted); margin-bottom:6px">Contact (phone or email)</span>
+            <input type="text" 
+    id="contactInfo" 
+    placeholder="0971234567 or +260971234567 or email@example.com" 
+    required
+    pattern="^((\+260(7|9)\d{8})|(0(7|9)\d{8})|([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}))$"
+    title="Enter a valid Zambian phone number (07..., 09..., +2607..., +2609...) or a valid email address"   required />
+          </label>
+
+          <label class="row" style="flex-direction:column">
+            <span style="font-size:13px; color:var(--muted); margin-bottom:6px">What do you want built?</span>
+            <textarea id="message" placeholder="Describe in plain words what you need — a profile, a shop, an accounting tool, etc." required></textarea>
+          </label>
+
+          <div style="display:flex; gap:10px; margin-top:10px">
+            <button class="btn btn-primary" type="submit">Send request</button>
+            <button type="button" class="btn btn-light" id="clearForm">Clear</button>
+          </div>
+
+          <div id="formMessage" style="margin-top:12px; color:green; display:none">Thanks — your request has been sent. We will contact you soon.</div>
+        </form>
+
+        <aside style="padding:20px; border-radius:12px; background:rgba(255,255,255,0.03)">
+          <h3 style="margin-top:0">Need help choosing?</h3>
+          <p style="color:var(--muted)">If you are not sure what you need, write a short note like "I want a online shop for my store" or "I need a simple book keeper". We'll call, explain and share a friendly plan.</p>
+
+          <div style="margin-top:12px">
+            <strong>Contact</strong>
+            <div style="color:var(--muted); margin-top:6px">Email: mweshaba@icloud.com<br>Phone: +260 766512632</div>
+          </div>
+
+          <div style="margin-top:12px">
+            <strong style="display:block">Office</strong>
+            <div style="color:var(--muted); margin-top:6px">Lusaka, Zambia</div>
+          </div>
+
+        </aside>
+      </div>
+
+    </section>
+
   </main>
 
-  <footer class="footer">
-    <div>© <span id="year"></span> Avanti. All rights reserved.</div>
+  <!-- Assistant floating -->
+  <div class="assistant-fab" aria-hidden="false">
+    <div class="assistant-panel" id="assistantPanel" role="dialog" aria-label="Avanti Assistant">
+      <strong>Hello — I'm AvantiBot 👋</strong>
+      <div style="color:var(--muted); margin-top:8px">I can show you around. Try these quick actions:</div>
+      <div style="display:flex; gap:8px; margin-top:10px; ">
+        <button  class="btn btn-light" onclick="scrollToId('services')">Show services</button>
+        <button class="btn btn-light" onclick="scrollToId('projects')">See examples</button>
+        <button class="btn btn-light" onclick="scrollToId('contact')">Request help</button>
+      </div>
+      <div style="font-size:13px; color:var(--muted); margin-top:10px">Tip: Use the Request help button to send a short note — we'll reply quickly.</div>
+    </div>
+
+    <button class="assistant-button" id="assistantToggle" aria-expanded="false" aria-controls="assistantPanel" aria-label="Open the Avanti assistant">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zM9 9h6v2H9V9zm0 4h4v2H9v-2z" fill="#fff"/></svg>
+    </button>
+  </div>
+
+<section>
+<img "style="width: 100%;" src="logo2.jpeg">
+</section>
+
+  <!-- Large footer -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">Avanti</div>
+        <div style="color:#cfe7ff; margin-bottom:10px">Design. Develop. Evolve.</div>
+        <div style="color:var(--muted)">Avanti builds easy-to-use digital tools and websites for people and businesses. We design in plain language and deliver reliable systems.</div>
+
+        <div class="socials" aria-hidden="true">
+          <a href="#" style="color:#9bd6ff; text-decoration:none">Twitter</a>
+          <a href="#" style="color:#ffd2b2; text-decoration:none">LinkedIn</a>
+          <a href="#" style="color:#c7ffdf; text-decoration:none">Facebook</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:700; color:#fff; margin-bottom:10px">Services</div>
+        <div class="footer-links">
+          <a href="#services" style="color:var(--muted); text-decoration:none">Web profiles & portfolios</a>
+          <a href="#projects" style="color:var(--muted); text-decoration:none">Shop & e-commerce</a>
+          <a href="#contact" style="color:var(--muted); text-decoration:none">Request a custom tool</a>
+          <a href="#how" style="color:var(--muted); text-decoration:none">How we work</a>
+          <a href="#clients" style="color:var(--muted); text-decoration:none">Our clients</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="font-weight:700; color:#fff; margin-bottom:10px">Get in touch</div>
+        <div style="color:var(--muted)">Email: mweshaba@icloud.com</div>
+        <div style="color:var(--muted); margin-top:8px">Phone: +260 766512632</div>
+        <div style="color:var(--muted); margin-top:8px">Location: Lusaka, Zambia</div>
+
+        <div class="legal">
+          <div style="margin-top:8px">Registered company information and legal terms available on request.</div>
+          <div style="margin-top:12px">© 2025 Avanti. All rights reserved.</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width:var(--max-width); margin:18px auto 0; color:#6f8296; font-size:13px; padding-top:20px;">
+      <strong>Accessibility & clarity:</strong> This site is written in plain language so everyone can understand our services and make simple requests. If you need help, call us and we will guide you step-by-step.
+    </div>
   </footer>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <script>
+    // Simple helpers
+    function scrollToId(id){
+      const el = document.getElementById(id);
+      if(!el) return;
+      el.scrollIntoView({behavior:'smooth', block:'start'});
+    }
+
+    // Assistant toggle
+    const assistantToggle = document.getElementById('assistantToggle');
+    const assistantPanel = document.getElementById('assistantPanel');
+    let assistantOpen = false;
+    assistantToggle.addEventListener('click', () => {
+      assistantOpen = !assistantOpen;
+      assistantPanel.classList.toggle('visible', assistantOpen);
+      assistantToggle.setAttribute('aria-expanded', assistantOpen ? 'true' : 'false');
+    });
+
+    // Smooth nav for small screens - simple show/hide (no heavy nav)
+    document.getElementById('logo-mark').addEventListener('click', () => scrollToId('home'));
+    document.querySelectorAll('.nav-links a').forEach(a => {
+      a.addEventListener('click', (e) => {
+        if(a.hash) {
+          e.preventDefault();
+          scrollToId(a.hash.replace('#',''));
+        }
+      });
+    });
+
+    // Request form (local demo — replace with your backend)
+    // Initialize EmailJS with your User ID
+emailjs.init('VdZnwQXzlvXUMvOpB');
+
+const requestForm = document.getElementById('requestForm');
+requestForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Gather data
+  const name = document.getElementById('name').value.trim();
+  const contactInfo = document.getElementById('contactInfo').value.trim();
+  const message = document.getElementById('message').value.trim();
+
+  // Simple local validation
+  if (!name || !contactInfo || !message) {
+    alert('Please fill the form so we can help you.');
+    return;
+  }
+
+  // Send email using EmailJS
+  emailjs.send('service_yekq70e', 'template_8in927p', {
+    name: name,
+    contactInfo: contactInfo,
+    message: message,
+  })
+    .then((response) => {
+      console.log('Request sent:', response.status, response.text);
+
+      // Display success message
+      const msgEl = document.getElementById('formMessage');
+      msgEl.style.display = 'block';
+      msgEl.textContent = 'Thank you! Your request was sent. We will contact you soon.';
+
+      // Reset form after a pause
+      setTimeout(() => {
+        msgEl.style.display = 'none';
+        requestForm.reset();
+      }, 4200);
+    })
+    .catch((error) => {
+      console.error('Error sending request:', error);
+      alert('Error sending request. Please try again.');
+    });
+});
+
+document.getElementById('clearForm').addEventListener('click', () => {
+  requestForm.reset();
+});
+
+    // Make sure images are visible and used as backgrounds when needed:
+    // If any image fails to load, fallback color is used by CSS filter above.
+
+    // Small enhancement: gently animate the logo mark on load
+    const logo = document.getElementById('logo-mark');
+    logo.animate([
+      { transform: 'scale(0.85) rotate(-8deg)', opacity: 0 },
+      { transform: 'scale(1) rotate(0deg)', opacity: 1 }
+    ], { duration: 700, easing: 'cubic-bezier(.22,.9,.35,1)' });
+
+    // Accessibility: keyboard toggle assistant with ""
+    document.addEventListener('keydown', (e) => {
+      if(e.key.toLowerCase() === ''){
+        assistantOpen = !assistantOpen;
+        assistantPanel.classList.toggle('visible', assistantOpen);
+        assistantToggle.setAttribute('aria-expanded', assistantOpen ? 'true' : 'false');
+        assistantToggle.focus();
+      }
+    });
+
+  </script>
+
 </body>
 </html>
